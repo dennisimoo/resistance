@@ -63,13 +63,16 @@ app.get '/server/play', (req, res) ->
 
     res.header('Cache-Control', 'no-cache')
 
-    if player.messageQueue.length is 0
-        player.messageQueue.push({ cmd: 'ack' }) if not player.response?
+    # Initialize pendingMessages if it doesn't exist
+    player.pendingMessages = [] if not player.pendingMessages?
+
+    if player.pendingMessages.length is 0
+        player.pendingMessages.push({ cmd: 'ack' }) if not player.response?
         player.response = res
         req.on 'close', -> delete player.response
     else
-        res.send(player.messageQueue)
-        player.messageQueue = []
+        res.send(player.pendingMessages)
+        player.pendingMessages = []
 
 app.post '/server/play', (req, res) ->
     player = getPlayer(req, res)
