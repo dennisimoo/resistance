@@ -324,6 +324,11 @@ app.post '/server/account', (req, res) ->
         else
             res.send(400)
 
+# Serve socket.io.js stub to prevent 404 errors
+app.get '/socket.io/socket.io.js', (req, res) ->
+    res.header('Content-Type', 'application/javascript')
+    res.send('// Socket.io stub - not implemented')
+
 app.use express.static('client')
 
 # Load options first
