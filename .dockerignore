@@ -1,0 +1,12 @@
+node_modules
+release
+logs
+.git
+.gitignore
+README.md
+README.*.md
+test.cmd
+build.cmd
+Dockerfile
+docker-compose.yml
+.dockerignore
